@@ -1,23 +1,24 @@
 import React from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator, StyleSheet, useColorScheme } from 'react-native';
 import { Redirect } from 'expo-router';
 import { useAuthStore } from '@/src/store/authStore';
-import { Colors } from '@/src/constants/designTokens';
+import { LightColors, DarkColors } from '@/src/constants/designTokens';
 
 export default function IndexScreen() {
   const user = useAuthStore((state) => state.user);
   const isLoading = useAuthStore((state) => state.isLoading);
 
-  // Kung naglo-load pa ang Zustand o Supabase, ipakita ang loading spinner
+  const colorScheme = useColorScheme();
+  const Colors = colorScheme === 'dark' ? DarkColors : LightColors;
+
   if (isLoading) {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, { backgroundColor: Colors.background }]}>
         <ActivityIndicator size="large" color={Colors.primary} />
       </View>
     );
   }
 
-  // Declarative routing: Ligtas ito sa "Navigate before mounting" error
   if (user) {
     return <Redirect href="/(tabs)/home" />;
   } else {
@@ -26,5 +27,5 @@ export default function IndexScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: Colors.background, justifyContent: 'center', alignItems: 'center' },
+  container: { flex: 1, justifyContent: 'center', alignItems: 'center' },
 });
