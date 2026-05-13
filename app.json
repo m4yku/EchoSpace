@@ -2,6 +2,7 @@
   "expo": {
     "name": "EchoSpace",
     "slug": "EchoSpace",
+    "scheme": "echospace",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,8 +24,18 @@
       "edgeToEdgeEnabled": true,
       "predictiveBackGestureEnabled": false
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    }
+   "web": {
+      "bundler": "metro",
+      "favicon": "./assets/favicon.png",
+      "shortName": "EchoSpace",
+      "themeColor": "#0F172A",
+      "backgroundColor": "#0F172A",
+      "display": "standalone",
+      "description": "Send echoes that resonate."
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font"
+    ]
   }
 }
